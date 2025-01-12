@@ -4,42 +4,46 @@ namespace App\Actions;
 
 use App\Enums\AnnualSalaryRange;
 use App\Enums\TaxRate;
+use App\Repositories\TaxRateRepository;
+use Illuminate\Support\Collection;
 
 class SalaryAction
 {
     private array $allSalaryRanges = [];
 
-    public function __construct()
+    public function __construct(private readonly TaxRateRepository $taxRateRepository)
     {
     }
 
-    public function getAllSalaryRanges(): array
+    public function getAllTaxes(): Collection | null
     {
-        return AnnualSalaryRange::allSalaryRange();
+        return $this->taxRateRepository->allTaxes();
     }
 
 
     public function calculateGrossMonthlySalary(int $salary, $months = 12): float
     {
+
         $salaryByMonth = $salary / $months;
         return self::format_float_salary($salaryByMonth);
     }
 
     public function findAnnualSalaryRange(int $salary): int
     {
-        $range = 0;
+        $percentage = 0;
         switch ($salary) {
-            case $salary < AnnualSalaryRange::rangeSalaryA:
-                $range = TaxRate::taxBandA->value;
+            case $salary < $this->taxRateRepository->taxBandA()->annual_salary_range:
+
+                $percentage = $this->taxRateRepository->taxBandA()->percent;
                 break;
-            case $salary < AnnualSalaryRange::rangeSalaryB;
-                $range = TaxRate::taxBandB->value;
+            case $salary < $this->taxRateRepository->taxBandB()->annual_salary_range;
+                $percentage = $this->taxRateRepository->taxBandB()->percent;
                 break;
             default :
-                $range = TaxRate::taxBandC->value;
+                $percentage = $this->taxRateRepository->taxBandC()->percent;
 
         }
-        return $range;
+        return $percentage;
     }
 
     public static function format_float_salary(float $salary): float
@@ -48,43 +52,52 @@ class SalaryAction
 
     }
 
-    public function annualTaxPaid(int $salary)
+    /**
+     * @param int $salary
+     * @return float|int
+     */
+    public function annualTaxPaid(int $salary): float|int
     {
-        $amountTax = 0;
+
+        $annualTaxPaid = 0;
         //check before if the salary is taxable
-       if(!self::salaryIsTaxable($salary)) {
-           return $salary;
+       if(!$this->salaryIsTaxable($salary)) {
+           return $annualTaxPaid;
        }
-        if ($salary >= AnnualSalaryRange::rangeSalaryA->value) {
-            $amountTax += AnnualSalaryRange::rangeSalaryA->value * AnnualSalaryRange::taxBandA->value / 100;
+        if ($salary >= $this->taxRateRepository->taxBandA()->annual_salary_range) {
+            $annualTaxPaid +=
+                $this->taxRateRepository->taxBandA()->annual_salary_range *
+                $this->taxRateRepository->taxBandA()->percent / 100;
         }
 
         // vérifie si ton salaire est supérieure au montant du 2eme palier
-        if ($salary > AnnualSalaryRange::rangeSalaryB->value) {
+        if ($salary > $this->taxRateRepository->taxBandB()->annual_salary_range) {
 
-            $amountToTax = AnnualSalaryRange::rangeSalaryB->value - AnnualSalaryRange::rangeSalaryA->value;
-            $amountTax += ($amountToTax * AnnualSalaryRange::taxBandB->value) / 100;
+            $amountToTax = $this->taxRateRepository->taxBandB()->annual_salary_range -
+                $this->taxRateRepository->taxBandA()->annual_salary_range;
+            $annualTaxPaid += ($amountToTax * $this->taxRateRepository->taxBandB()->percent) / 100;
         } else {
-            $amountToTax = $salary - AnnualSalaryRange::rangeSalaryA->value;
-            $amountTax += ($amountToTax * AnnualSalaryRange::taxBandB->value) / 100;
+            $amountToTax = $salary - $this->taxRateRepository->taxBandA()->annual_salary_range;
+            $annualTaxPaid += ($amountToTax * $this->taxRateRepository->taxBandB()->percent) / 100;
         }
 
-        if ($salary > AnnualSalaryRange::rangeSalaryB->value) {
-            $amountTax += ($salary - AnnualSalaryRange::rangeSalaryB->value) * AnnualSalaryRange::taxBandC->value / 100;
+        if ($salary > $this->taxRateRepository->taxBandC()->annual_salary_range) {
+            $annualTaxPaid += ($salary - $this->taxRateRepository->taxBandB()->annual_salary_range) *
+                $this->taxRateRepository->taxBandC()->annual_salary_range / 100;
         }
 
 
-        return $amountTax;
+        return $annualTaxPaid;
 
     }
-    public static function salaryIsTaxable(int $grossSalary): bool
+    public function salaryIsTaxable(int $grossSalary): bool
     {
-        return $grossSalary > AnnualSalaryRange::rangeSalaryA->value;
+        return $grossSalary > $this->taxRateRepository->taxBandA()->annual_salary_range;
     }
 
     public function findNetAnnualSalary(int $tax, int $salary): int
     {
-       return  self::salaryIsTaxable($salary) ? $salary - $tax : $salary;
+       return  $this->salaryIsTaxable($salary) ? $salary - $tax : $salary;
 
     }
 

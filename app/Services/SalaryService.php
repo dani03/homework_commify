@@ -33,17 +33,14 @@ class SalaryService
 
     public function setGrossAnnualSalary(int $grossAnnualSalary): void
     {
+
         $this->grossAnnualSalary = $grossAnnualSalary;
     }
 
     public function getGrossMonthlySalary(): float
     {
-        return $this->grossMonthlySalary = $this->salaryAction->calculateGrossMonthlySalary($this->grossAnnualSalary);
-    }
-
-    public function setGrossMonthlySalary(float $grossMonthlySalary): void
-    {
-        $this->grossMonthlySalary = $grossMonthlySalary;
+        return $this->grossMonthlySalary =
+            $this->salaryAction->calculateGrossMonthlySalary($this->grossAnnualSalary);
     }
 
     /**

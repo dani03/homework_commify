@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('tax_rates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('percent');
+            $table->integer('percent');
+            $table->string('range');
+            $table->integer('annual_salary_range');
+            $table->string('identifier')->unique();
             $table->timestamps();
         });
     }
