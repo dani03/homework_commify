@@ -61,7 +61,7 @@ class SalaryAction
 
         $annualTaxPaid = 0;
         //check before if the salary is taxable
-       if(!self::salaryIsTaxable($salary)) {
+       if(!$this->salaryIsTaxable($salary)) {
            return $annualTaxPaid;
        }
         if ($salary >= $this->taxRateRepository->taxBandA()->annual_salary_range) {
@@ -91,14 +91,14 @@ class SalaryAction
         return $annualTaxPaid;
 
     }
-    public static function salaryIsTaxable(int $grossSalary): bool
+    public function salaryIsTaxable(int $grossSalary): bool
     {
-        return $grossSalary > AnnualSalaryRange::rangeSalaryA->value;
+        return $grossSalary > $this->taxRateRepository->taxBandA()->annual_salary_range;
     }
 
     public function findNetAnnualSalary(int $tax, int $salary): int
     {
-       return  self::salaryIsTaxable($salary) ? $salary - $tax : $salary;
+       return  $this->salaryIsTaxable($salary) ? $salary - $tax : $salary;
 
     }
 
