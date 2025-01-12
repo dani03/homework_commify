@@ -48,11 +48,14 @@ class SalaryAction
 
     }
 
-    public function taxPaid(int $salary)
+    public function annualTaxPaid(int $salary)
     {
         $amountTax = 0;
+        //check before if the salary is taxable
+       if(!self::salaryIsTaxable($salary)) {
+           return $salary;
+       }
         if ($salary >= AnnualSalaryRange::rangeSalaryA->value) {
-
             $amountTax += AnnualSalaryRange::rangeSalaryA->value * AnnualSalaryRange::taxBandA->value / 100;
         }
 
@@ -67,23 +70,29 @@ class SalaryAction
         }
 
         if ($salary > AnnualSalaryRange::rangeSalaryB->value) {
-
             $amountTax += ($salary - AnnualSalaryRange::rangeSalaryB->value) * AnnualSalaryRange::taxBandC->value / 100;
         }
+
 
         return $amountTax;
 
     }
+    public static function salaryIsTaxable(int $grossSalary): bool
+    {
+        return $grossSalary > AnnualSalaryRange::rangeSalaryA->value;
+    }
 
     public function findNetAnnualSalary(int $tax, int $salary): int
     {
-        return $salary - $tax ;
+       return  self::salaryIsTaxable($salary) ? $salary - $tax : $salary;
+
     }
 
     public function calculateNetMonthlySalary(int $netSalary, int $months = 12): string
     {
         return self::format_float_salary($netSalary / $months);
     }
+
 
 
 }

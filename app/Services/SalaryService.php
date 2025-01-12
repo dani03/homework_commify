@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Actions\SalaryAction;
 use App\Enums\TaxRate;
 use App\Http\Requests\SalaryRequest;
+use Illuminate\Support\Collection;
 use PhpParser\Node\Expr\Cast\Double;
 
 class SalaryService
@@ -45,12 +46,15 @@ class SalaryService
         $this->grossMonthlySalary = $grossMonthlySalary;
     }
 
-    public function getNetAnnualSalary()
+    /**
+     * @return float
+     */
+    public function getNetAnnualSalary(): float
     {
-        $tax = $this->salaryAction->taxPaid($this->grossAnnualSalary);
-
-        return $this->netAnnualSalary = $this->salaryAction->findNetAnnualSalary($tax, $this->grossAnnualSalary);
+        $annualTax = $this->getAnnualTaxPaid();
+        return $this->netAnnualSalary = $this->salaryAction->findNetAnnualSalary($annualTax, $this->grossAnnualSalary);
     }
+
 
     public function setNetAnnualSalary(float $netAnnualSalary): void
     {
@@ -59,7 +63,6 @@ class SalaryService
 
     public function getNetMonthlySalary(): float
     {
-
         return $this->netMonthlySalary = $this->salaryAction->calculateNetMonthlySalary($this->getNetAnnualSalary());
     }
 
@@ -70,7 +73,8 @@ class SalaryService
 
     public function getAnnualTaxPaid(): float
     {
-        return $this->annualTaxPaid;
+        return $this->annualTaxPaid = $this->salaryAction->annualTaxPaid($this->grossAnnualSalary);
+
     }
 
     public function setAnnualTaxPaid(float $annualTaxPaid): void
@@ -80,12 +84,19 @@ class SalaryService
 
     public function getMonthlyTaxPaid(): float
     {
-        return $this->monthlyTaxPaid;
+        return $this->monthlyTaxPaid = round($this->annualTaxPaid / 12, 2);
     }
 
-    public function setMonthlyTaxPaid(float $monthlyTaxPaid): void
+    public function allSalaryDetails(): Collection
     {
-        $this->monthlyTaxPaid = $monthlyTaxPaid;
+      return  collect([
+            'grossAnnualSalary' => $this->getGrossAnnualSalary(),
+            'grossMonthlySalary' => $this->getGrossMonthlySalary(),
+            'netAnnualSalary' => $this->getNetAnnualSalary(),
+            'netMonthlySalary' => $this->getNetMonthlySalary(),
+            'annualTaxPaid' => $this->getAnnualTaxPaid(),
+            'monthlyTaxPaid' => $this->getMonthlyTaxPaid()
+        ]);
     }
 
 

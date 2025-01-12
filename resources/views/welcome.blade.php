@@ -36,11 +36,13 @@
 
         </form>
 
-    @isset($operations)
-            <p>{{ '£' ." ". $operations['gross_annual_salary']  }}</p>
-            <p>{{ '£' ." ". $operations['gross_monthly_salary']  }}</p>
-            <p>{{ '£' ." ". $operations['net_annual_salary']  }}</p>
-            <p>{{ '£' ." ". $operations['net_monthly_salary']  }}</p>
+    @isset($salaryDetails)
+            <p> Gross annual salary: {{ '£' ." ". $salaryDetails['grossAnnualSalary']  }}</p>
+            <p> Gross monthly salary: {{ '£' ." ". $salaryDetails['grossMonthlySalary']  }}</p>
+            <p>net annual salary : {{ '£' ." ". $salaryDetails['netAnnualSalary']  }}</p>
+            <p>net monthly salary :  {{ '£' ." ". $salaryDetails['netMonthlySalary']  }}</p>
+            <p>annual tax paid :  {{ '£' ." ". $salaryDetails['annualTaxPaid']  }}</p>
+            <p>monthly tax paid :  {{ '£' ." ". $salaryDetails['monthlyTaxPaid']  }}</p>
 
     @endisset
     </body>
