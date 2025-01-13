@@ -6,9 +6,9 @@ build:
 	composer install
 	npm install
 	@make "env-file"
+	@make "sqlite-create-file"
 	php artisan key:generate
 	@make "migrate-seed"
-	@make "sqlite-create-file"
 	php artisan serve
 
 
