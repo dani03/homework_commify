@@ -10,7 +10,7 @@ Deux méthodes d'installation sont disponibles: avec Makefile (recommandée) ou 
 ## Installation avec Makefile (recommandée)
 
 1. Naviguez jusqu'au dossier du projet à l'aide d'un terminal.
-2. Exécutez la commande suivante: `makefile build`. Cela va compiler et préparer le projet.
+2. Exécutez la commande suivante: `make build`. Cela va compiler et préparer le projet.
 3. Lancez la commande suivante pour compiler les assets front-end dans un autre terminal du meme dossier: `npm run dev`.
 4. Vous pouvez maintenant tester le projet.
 
@@ -76,7 +76,7 @@ Assurez-vous que les outils suivants sont installés sur votre machine:
 
 # Tax Calculator
 
-## english language.
+## english.
 
 This document explains how to set up and run the Tax Calculator project.  
 Follow the steps carefully to ensure proper installation.  

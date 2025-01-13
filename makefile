@@ -5,8 +5,8 @@ DATABASE_SQLITE = ./database/database.sqlite
 build:
 	composer install
 	npm install
-	php artisan key:generate
 	@make "env-file"
+	php artisan key:generate
 	@make "migrate-seed"
 	@make "sqlite-create-file"
 	php artisan serve
