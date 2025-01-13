@@ -21,6 +21,11 @@ class SalaryController extends Controller
         $salary = is_numeric($salary) ? (int) $salary : 0;
         $this->salaryService->setGrossAnnualSalary($salary);
         $salaryDetails = $this->salaryService->allSalaryDetails();
-        return back()->with('salaryDetails', $salaryDetails);
+        return redirect()->back()->with([
+            'success' =>'This is the details of your salary. ',
+            'salaryDetails'=> $salaryDetails
+
+        ]);
+
     }
 }

@@ -39,5 +39,10 @@ class TaxRateRepository implements TaxRateInterface
         return TaxRate::where('identifier', 'C')->first();
     }
 
+    public function save(array $data): bool
+    {
+       return (bool)TaxRate::create($data);
+    }
+
 
 }
