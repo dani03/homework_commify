@@ -60,6 +60,7 @@ Assurez-vous que les outils suivants sont installés sur votre machine:
 
     - Utilisez: `php artisan serve`.
     - Ou pour un port spécifique: `php artisan serve --port [exemple: 3000]`.
+    -  Pour lancer les tests `php artisan test`
 
 8. **Compiler les assets front-end:**
 
@@ -137,6 +138,7 @@ Ensure the following tools are installed on your machine:
 
     - Use: `php artisan serve`.
     - Or for a specific port: `php artisan serve --port [e.g., 3000]`.
+    - For running tests `php artisan test`
 
 8. **Build the Front-End Assets:**
 
