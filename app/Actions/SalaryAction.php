@@ -15,6 +15,12 @@ readonly class SalaryAction
     }
 
 
+    /**
+     * calculate gross monthly salary
+     * @param int $salary
+     * @param int $months
+     * @return float
+     */
     public function calculateGrossMonthlySalary(int $salary, int $months = 12): float
     {
 
@@ -23,12 +29,21 @@ readonly class SalaryAction
     }
 
 
+    /**
+     * @param float $salary
+     * @return float
+     */
     public static function format_float_salary(float $salary): float
     {
         return round($salary, 2);
     }
 
 
+    /**
+     * get the annual tax paid of a salary
+     * @param int $salary
+     * @return float|int
+     */
     public function annualTaxPaid(int $salary): float|int
     {
         $annualTaxPaid = 0;
@@ -73,17 +88,34 @@ readonly class SalaryAction
         return $annualTaxPaid;
     }
 
+    /**
+     * find if the salary is taxable
+     * @param int $grossSalary
+     * @return bool
+     */
     public function salaryIsTaxable(int $grossSalary): bool
     {
         return $grossSalary > $this->taxRateRepository->taxBandA()->annual_salary_range;
     }
 
+    /**
+     * find the net annual salary of a gross salary
+     * @param int $tax
+     * @param int $salary
+     * @return int
+     */
     public function findNetAnnualSalary(int $tax, int $salary): int
     {
         return $this->salaryIsTaxable($salary) ? $salary - $tax : $salary;
 
     }
 
+    /**
+     * to calculate monthly net salary
+     * @param int $netSalary
+     * @param int $months
+     * @return float
+     */
     public function calculateNetMonthlySalary(int $netSalary, int $months = 12): float
     {
         return self::format_float_salary($netSalary / $months);

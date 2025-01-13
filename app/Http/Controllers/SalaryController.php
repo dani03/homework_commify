@@ -15,6 +15,10 @@ class SalaryController extends Controller
 
     }
 
+    /**
+     * @param SalaryRequest $request
+     * @return RedirectResponse
+     */
     public function __invoke(SalaryRequest $request): RedirectResponse
     {
         $salary =  $request->salary;

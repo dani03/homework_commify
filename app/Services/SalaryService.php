@@ -27,18 +27,26 @@ class SalaryService
         return $this->grossAnnualSalary;
     }
 
+    /**
+     * @param int $grossAnnualSalary
+     * @return void
+     */
     public function setGrossAnnualSalary(int $grossAnnualSalary): void
     {
 
         $this->grossAnnualSalary =  $grossAnnualSalary;
     }
 
+    /**
+     * @return float
+     */
     public function getGrossMonthlySalary(): float
     {
         return  $this->salaryAction->calculateGrossMonthlySalary($this->grossAnnualSalary);
     }
 
     /**
+     * get net annual salary
      * @return float
      */
     public function getNetAnnualSalary(): float
@@ -48,27 +56,38 @@ class SalaryService
     }
 
 
-
-
+    /**
+     * get net monthly salary
+     * @return float
+     */
     public function getNetMonthlySalary(): float
     {
         return  $this->salaryAction->calculateNetMonthlySalary((int) $this->getNetAnnualSalary());
     }
 
 
-
+    /**
+     * to get the annual tax paid of a salary
+     * @return float
+     */
     public function getAnnualTaxPaid(): float
     {
         return $this->annualTaxPaid = $this->salaryAction->annualTaxPaid($this->grossAnnualSalary);
 
     }
 
+    /**
+     * get monthly tax paid
+     * @return float
+     */
     public function getMonthlyTaxPaid(): float
     {
         return round($this->annualTaxPaid / 12, 2);
     }
 
     /**
+     * get all the details of a salary
+     * gross annual salary net salary tax annual paid etc...
      * @return Collection<string, float|int>
      */
     public function allSalaryDetails(): Collection

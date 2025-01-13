@@ -17,6 +17,11 @@ class TaxService
     }
 
 
+    /**
+     * save a new tax to the database
+     * @param StoreTaxRequest $request
+     * @return bool
+     */
     public function saveNewTaxRate(StoreTaxRequest $request): bool
     {
         $percent = is_numeric($request->percent) ? (int) $request->percent : 0;
