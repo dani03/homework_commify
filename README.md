@@ -87,7 +87,7 @@ Two installation methods are available: using Makefile (recommended) or manually
 ## Installation Using Makefile (Recommended)
 
 1. Navigate to the project folder using a terminal.
-2. Run the following command: `makefile build`. This will compile and prepare the project.
+2. Run the following command: `make build`. This will compile and prepare the project.
 3. Run the following command in another terminal within the same folder to build the front-end assets: `npm run dev`.
 4. You can now test the project.
 
