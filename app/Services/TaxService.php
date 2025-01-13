@@ -16,19 +16,21 @@ class TaxService
 
     }
 
+
     public function saveNewTaxRate(StoreTaxRequest $request): bool
     {
-       $data = [
-           'identifier' => Str::ulid(),
-            'range' => $request->range,
-            'name' => $request->name,
-            'percent' => $request->percent,
-            'annual_salary_range' => $request->annual_band
+        $percent = is_numeric($request->percent) ? (int) $request->percent : 0;
+        $annual_salary_range = is_numeric($request->annual_band) ? (int) $request->annual_band : 0;
+        $name = is_string($request->name) ? (string) $request->name : '';
+            $data = [
+            'range' => is_string($request->range) ? (string) $request->range : '',
+            'percent' => $percent,
+            'annual_salary_range' => $annual_salary_range,
+            'name' => $name,
+            'identifier' => Str::ulid()
         ];
 
        return  $this->taxRateRepository->save($data);
-
-
     }
 
 

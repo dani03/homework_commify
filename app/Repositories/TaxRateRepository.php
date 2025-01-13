@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\TaxRateInterface;
 use App\Models\TaxRate;
 use Illuminate\Support\Collection;
+use Symfony\Component\Uid\Ulid;
 
 class TaxRateRepository implements TaxRateInterface
 {
@@ -39,6 +40,13 @@ class TaxRateRepository implements TaxRateInterface
         return TaxRate::where('identifier', 'C')->first();
     }
 
+    /**
+     * Save a new TaxRate.
+     *
+     * @param array{identifier: Ulid, range: string,
+     *     percent: integer, name:string, annual_salary_range: integer} $data
+     * @return bool
+     */
     public function save(array $data): bool
     {
        return (bool)TaxRate::create($data);
