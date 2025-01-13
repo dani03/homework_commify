@@ -1,66 +1,150 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tax Calculator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## français
+Ce document explique comment configurer et exécuter le projet Tax Calculator. 
+Suivez attentivement les étapes pour garantir une installation correcte. 
+Deux méthodes d'installation sont disponibles: avec Makefile (recommandée) ou manuellement.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation avec Makefile (recommandée)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Naviguez jusqu'au dossier du projet à l'aide d'un terminal.
+2. Exécutez la commande suivante: `makefile build`. Cela va compiler et préparer le projet.
+3. Lancez la commande suivante pour compiler les assets front-end dans un autre terminal du meme dossier: `npm run dev`.
+4. Vous pouvez maintenant tester le projet.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Installation manuelle
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prérequis
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Assurez-vous que les outils suivants sont installés sur votre machine:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP
+- Composer
+- NPM
+- Laravel
 
-## Laravel Sponsors
+### Étapes
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Télécharger le projet:**
 
-### Premium Partners
+    - Clonez ou téléchargez le projet sur votre machine.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. **Naviguer dans le dossier du projet:**
 
-## Contributing
+    - Ouvrez un terminal et accédez au dossier du projet.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Installer les dépendances:**
 
-## Code of Conduct
+    - Exécutez la commande: `composer install`.
+    - Puis exécutez: `npm install`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Configurer le fichier d'environnement:**
 
-## Security Vulnerabilities
+    - Copiez le fichier `.env.example` et renommez-le en `.env`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Générer la clé de l'application:**
 
-## License
+    - Utilisez la commande: `php artisan key:generate`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Initialiser la base de données:**
+
+    - Lancez: `php artisan migrate --seed`.
+    - Le prompt proposera de créer une base de données SQLite. Tapez `yes` pour confirmer, ou configurez une base MySQL selon vos besoins.
+    - Cette commande initialise la base de données et y ajoute des données essentielles.
+
+7. **Démarrer le serveur PHP:**
+
+    - Utilisez: `php artisan serve`.
+    - Ou pour un port spécifique: `php artisan serve --port [exemple: 3000]`.
+
+8. **Compiler les assets front-end:**
+
+    - Exécutez: `npm run dev`.
+
+9. **Tester le projet:**
+
+    - Copiez l’URL affichée dans votre navigateur.
+    - Le calculateur de taxes est prêt à être utilisé.
+
+---
+
+
+
+# Tax Calculator
+
+## english language.
+
+This document explains how to set up and run the Tax Calculator project.  
+Follow the steps carefully to ensure proper installation.  
+Two installation methods are available: using Makefile (recommended) or manually.
+
+---
+
+## Installation Using Makefile (Recommended)
+
+1. Navigate to the project folder using a terminal.
+2. Run the following command: `makefile build`. This will compile and prepare the project.
+3. Run the following command in another terminal within the same folder to build the front-end assets: `npm run dev`.
+4. You can now test the project.
+
+---
+
+## Manual Installation
+
+### Prerequisites
+
+Ensure the following tools are installed on your machine:
+
+- PHP
+- Composer
+- NPM
+- Laravel
+
+### Steps
+
+1. **Download the Project:**
+
+    - Clone or download the project to your machine.
+
+2. **Navigate to the Project Folder:**
+
+    - Open a terminal and navigate to the project folder.
+
+3. **Install Dependencies:**
+
+    - Run the command: `composer install`.
+    - Then run: `npm install`.
+
+4. **Set Up the Environment File:**
+
+    - Copy the `.env.example` file and rename it to `.env`.
+
+5. **Generate the Application Key:**
+
+    - Use the command: `php artisan key:generate`.
+
+6. **Initialize the Database:**
+
+    - Run: `php artisan migrate --seed`.
+    - The prompt will offer to create a SQLite database. Type `yes` to confirm, or configure a MySQL database if needed.
+    - This command initializes the database and adds essential data.
+
+7. **Start the PHP Server:**
+
+    - Use: `php artisan serve`.
+    - Or for a specific port: `php artisan serve --port [e.g., 3000]`.
+
+8. **Build the Front-End Assets:**
+
+    - Run: `npm run dev`.
+
+9. **Test the Project:**
+
+    - Copy the URL displayed into your browser.
+    - The tax calculator is now ready to use.
+
+---
