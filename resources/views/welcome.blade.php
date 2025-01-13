@@ -20,11 +20,8 @@
 <body class="font-sans antialiased dark:bg-black">
 
 
-
-
-
 <div class="flex flex-col items-center justify-center min-h-96">
-<x-logo></x-logo>
+    <x-logo></x-logo>
     <!-- Error Message -->
     <div class="text-red-500 text-3xl font-bold mb-4">
         @if($errors->any())
@@ -40,31 +37,27 @@
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Enter your gross salary</h2>
 
         <!-- Text Input -->
-       <x-input-component />
+        <x-input-component/>
         <!-- Button -->
         <div class="flex space-x-4">
-            <button
-                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            <button type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                 Calculate
             </button>
         </div>
 
         <!-- Salary Details -->
-        <div class="mt-6 text-gray-600 text-lg">
-            @isset($salaryDetails)
-                <p>Gross annual salary: {{ '£' . " " . $salaryDetails['grossAnnualSalary'] }}</p>
-                <p>Gross monthly salary: {{ '£' . " " . $salaryDetails['grossMonthlySalary'] }}</p>
-                <p>Net annual salary: {{ '£' . " " . $salaryDetails['netAnnualSalary'] }}</p>
-                <p>Net monthly salary: {{ '£' . " " . $salaryDetails['netMonthlySalary'] }}</p>
-                <p>Annual tax paid: {{ '£' . " " . $salaryDetails['annualTaxPaid'] }}</p>
-                <p>Monthly tax paid: {{ '£' . " " . $salaryDetails['monthlyTaxPaid'] }}</p>
+            @if(session()->has('salaryDetails'))
+                @php
+                    $salaryDetails = session('salaryDetails');
+                @endphp
+           @endif
 
+            @isset($salaryDetails)
+                    <x-details-salary-component :details="$salaryDetails" />
             @endisset
-        </div>
+
     </form>
 </div>
-
-
-
 </body>
 </html>
