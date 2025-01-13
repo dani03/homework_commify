@@ -11,11 +11,7 @@ use PhpParser\Node\Expr\Cast\Double;
 class SalaryService
 {
     private int $grossAnnualSalary;
-    private float $grossMonthlySalary;
-    private float $netAnnualSalary;
-    private float $netMonthlySalary;
     private float $annualTaxPaid;
-    private float $monthlyTaxPaid;
 
 
     /**
@@ -34,13 +30,12 @@ class SalaryService
     public function setGrossAnnualSalary(int $grossAnnualSalary): void
     {
 
-        $this->grossAnnualSalary = $grossAnnualSalary;
+        $this->grossAnnualSalary =  $grossAnnualSalary;
     }
 
     public function getGrossMonthlySalary(): float
     {
-        return $this->grossMonthlySalary =
-            $this->salaryAction->calculateGrossMonthlySalary($this->grossAnnualSalary);
+        return  $this->salaryAction->calculateGrossMonthlySalary($this->grossAnnualSalary);
     }
 
     /**
@@ -48,25 +43,19 @@ class SalaryService
      */
     public function getNetAnnualSalary(): float
     {
-        $annualTax = $this->getAnnualTaxPaid();
-        return $this->netAnnualSalary = $this->salaryAction->findNetAnnualSalary($annualTax, $this->grossAnnualSalary);
+        $annualTax = (int) $this->getAnnualTaxPaid();
+        return $this->salaryAction->findNetAnnualSalary($annualTax, $this->grossAnnualSalary);
     }
 
 
-    public function setNetAnnualSalary(float $netAnnualSalary): void
-    {
-        $this->netAnnualSalary = $netAnnualSalary;
-    }
+
 
     public function getNetMonthlySalary(): float
     {
-        return $this->netMonthlySalary = $this->salaryAction->calculateNetMonthlySalary($this->getNetAnnualSalary());
+        return  $this->salaryAction->calculateNetMonthlySalary((int) $this->getNetAnnualSalary());
     }
 
-    public function setNetMonthlySalary(float $netMonthlySalary): void
-    {
-        $this->netMonthlySalary = $netMonthlySalary;
-    }
+
 
     public function getAnnualTaxPaid(): float
     {
@@ -74,16 +63,14 @@ class SalaryService
 
     }
 
-    public function setAnnualTaxPaid(float $annualTaxPaid): void
-    {
-        $this->annualTaxPaid = $annualTaxPaid;
-    }
-
     public function getMonthlyTaxPaid(): float
     {
-        return $this->monthlyTaxPaid = round($this->annualTaxPaid / 12, 2);
+        return round($this->annualTaxPaid / 12, 2);
     }
 
+    /**
+     * @return Collection<string, float|int>
+     */
     public function allSalaryDetails(): Collection
     {
       return  collect([

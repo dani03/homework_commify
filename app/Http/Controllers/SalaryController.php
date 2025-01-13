@@ -16,7 +16,8 @@ class SalaryController extends Controller
 
     public function __invoke(SalaryRequest $request): View
     {
-        $salary = $request->salary;
+        $salary =  $request->salary;
+        $salary = is_numeric($salary) ? (int) $salary : 0;
         $this->salaryService->setGrossAnnualSalary($salary);
         $salaryDetails = $this->salaryService->allSalaryDetails();
         return view('welcome', compact('salaryDetails'));

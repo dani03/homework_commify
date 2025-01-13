@@ -16,9 +16,12 @@ class TaxRateRepository implements TaxRateInterface
         //
     }
 
+    /**
+     * @return Collection<int, TaxRate>|null
+     */
     public function allTaxes(): Collection | null
     {
-        return TaxRate::all();
+        return TaxRate::all()->sortBy('percent');
     }
 
     public function taxBandA(): TaxRate | null

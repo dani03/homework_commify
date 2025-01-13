@@ -20,15 +20,11 @@
 <body class="font-sans antialiased dark:bg-black">
 
 
-<header>
-    <h1 class="mt-4 first-letter:capital text-5xl text-center font-bold ">
-        commify test
-    </h1>
-</header>
+
 
 
 <div class="flex flex-col items-center justify-center min-h-96">
-
+<x-logo></x-logo>
     <!-- Error Message -->
     <div class="text-red-500 text-3xl font-bold mb-4">
         @if($errors->any())
@@ -44,9 +40,7 @@
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Enter your gross salary</h2>
 
         <!-- Text Input -->
-        <input required type="text" name="salary" id="salary" placeholder="entrer your salary"
-               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
-
+       <x-input-component />
         <!-- Button -->
         <div class="flex space-x-4">
             <button
@@ -64,6 +58,7 @@
                 <p>Net monthly salary: {{ '£' . " " . $salaryDetails['netMonthlySalary'] }}</p>
                 <p>Annual tax paid: {{ '£' . " " . $salaryDetails['annualTaxPaid'] }}</p>
                 <p>Monthly tax paid: {{ '£' . " " . $salaryDetails['monthlyTaxPaid'] }}</p>
+
             @endisset
         </div>
     </form>
