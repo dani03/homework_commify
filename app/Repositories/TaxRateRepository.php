@@ -20,22 +20,22 @@ class TaxRateRepository implements TaxRateInterface
     /**
      * @return Collection<int, TaxRate>|null
      */
-    public function allTaxes(): Collection | null
+    public function allTaxes(): ?Collection
     {
         return TaxRate::all()->sortBy('percent');
     }
 
-    public function taxBandA(): TaxRate | null
+    public function taxBandA(): ?TaxRate
     {
         return TaxRate::where('identifier', 'A')->first();
     }
 
-    public function taxBandB(): TaxRate | null
+    public function taxBandB(): ?TaxRate
     {
         return TaxRate::where('identifier', 'B')->first();
     }
 
-    public function taxBandC(): TaxRate | null
+    public function taxBandC(): ?TaxRate
     {
         return TaxRate::where('identifier', 'C')->first();
     }
@@ -45,12 +45,9 @@ class TaxRateRepository implements TaxRateInterface
      *
      * @param array{identifier: Ulid, range: string,
      *     percent: integer, name:string, annual_salary_range: integer} $data
-     * @return bool
      */
     public function save(array $data): bool
     {
-       return (bool)TaxRate::create($data);
+        return (bool) TaxRate::create($data);
     }
-
-
 }

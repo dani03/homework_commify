@@ -7,9 +7,9 @@ use App\Models\TaxRate;
 interface TaxRateInterface
 {
     //
-    public function taxBandA(): TaxRate | null;
-    public function taxBandB(): TaxRate | null;
-    public function taxBandC(): TaxRate | null;
+    public function taxBandA(): ?TaxRate;
+
+    public function taxBandB(): ?TaxRate;
+
+    public function taxBandC(): ?TaxRate;
 }
-
-

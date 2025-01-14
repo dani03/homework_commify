@@ -22,7 +22,7 @@ class StoreTaxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ['string', 'required'],
+            'name' => ['string', 'required'],
             'annual_band' => ['integer', 'required'],
             'range' => ['string'],
             'percent' => ['required', 'integer'],

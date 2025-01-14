@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TaxController extends Controller
 {
-    public function __construct(private TaxService $taxService)
-    {
-    }
+    public function __construct(private TaxService $taxService) {}
 
     public function index(): View
     {
@@ -21,8 +19,8 @@ class TaxController extends Controller
     public function store(StoreTaxRequest $request): RedirectResponse
     {
         $this->taxService->saveNewTaxRate($request);
-        return redirect()->route('home')->with(['success' =>'A new tax has been added']);
 
+        return redirect()->route('home')->with(['success' => 'A new tax has been added']);
 
     }
 }

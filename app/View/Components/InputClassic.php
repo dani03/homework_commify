@@ -18,11 +18,7 @@ class InputClassic extends Component
         public string $isRequired,
         public string $placeholder,
 
-    )
-    {
-
-    }
-
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

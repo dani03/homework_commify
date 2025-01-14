@@ -2,12 +2,11 @@
 
 namespace App\Enums;
 
-enum TaxRate : int
+enum TaxRate: int
 {
     case taxBandA = 0;
     case taxBandB = 20;
     case taxBandC = 40;
-
 
     public function label(): string
     {
@@ -18,7 +17,7 @@ enum TaxRate : int
         };
     }
 
-    public function taxBandRange():int
+    public function taxBandRange(): int
     {
         return match ($this) {
             self::taxBandA => 5000,
@@ -27,7 +26,4 @@ enum TaxRate : int
         };
 
     }
-
-
-
 }

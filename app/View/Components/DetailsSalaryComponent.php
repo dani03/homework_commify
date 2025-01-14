@@ -11,7 +11,8 @@ class DetailsSalaryComponent extends Component
 {
     /**
      * Create a new component instance.
-     * @param Collection<int, String> $details
+     *
+     * @param  Collection<int, string>  $details
      */
     public function __construct(public Collection $details)
     {
